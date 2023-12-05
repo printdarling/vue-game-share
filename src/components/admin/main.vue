@@ -1,14 +1,7 @@
-<script >
+<script setup>
 
-import Header from "../components/user/header/header.vue";
-import Aside from "../components/user/aside/aside.vue";
-
-export default {
-  components:{
-    Header,
-    Aside,
-  }
-}
+import Header from "../admin/header.vue";
+import Aside from "../admin/aside.vue";
 </script>
 
 <template>
@@ -19,12 +12,12 @@ export default {
           <Header></Header>
         </el-header>
         <el-container>
-          <el-main class="main">
-            <router-view></router-view>
-          </el-main>
           <el-aside width="200px" style="height: 97vh">
             <Aside></Aside>
           </el-aside>
+          <el-main class="main">
+            <router-view></router-view>
+          </el-main>
         </el-container>
       </el-container>
     </div>

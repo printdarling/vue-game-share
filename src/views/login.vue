@@ -98,7 +98,9 @@ axios.defaults.baseURL='/api'
               case 20000:
                 //登录成功
                 this.$message.success(res.data.message)
-                this.$router.push('/main')
+                localStorage.setItem("login_info",JSON.stringify(res.data.data))
+                sessionStorage.setItem("id",JSON.stringify(res.data.data.id))
+                this.$router.push('/gamelist')
                 break;
 						}
 					})
