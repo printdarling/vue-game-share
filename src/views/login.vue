@@ -84,7 +84,6 @@ axios.defaults.baseURL='/api'
             }
 					})
 					.then( res => {
-            console.log(res)
 						switch(res.data.code){
 							case 10001:
                 //用户不存在
@@ -100,15 +99,10 @@ axios.defaults.baseURL='/api'
                 this.$message.success(res.data.message)
                 localStorage.setItem("login_info",JSON.stringify(res.data.data))
                 sessionStorage.setItem("id",JSON.stringify(res.data.data.id))
-                this.$router.push('/gamelist')
+                this.$router.push('/allGames')
                 break;
 						}
 					})
-					.catch( err => {
-						console.log(err);
-					})
-				} else{
-					alert("填写不能为空！");
 				}
 			},
 			register(){

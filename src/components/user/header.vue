@@ -1,5 +1,5 @@
 <template>
-  12366
+  <span style="text-align: center">游戏分享站</span>
   <el-menu
       :default-active="activeIndex"
       class="el-menu-demo"
@@ -7,12 +7,12 @@
       @select="handleSelect"
       router
   >
-    <el-menu-item index="gamelist">首页</el-menu-item>
-    <el-menu-item index="2">免费游戏</el-menu-item>
-    <el-menu-item index="3">积分游戏</el-menu-item>
+    <el-menu-item index="allGames">首页</el-menu-item>
+    <el-menu-item index="freeGames">免费游戏</el-menu-item>
+    <el-menu-item index="payGames">积分游戏</el-menu-item>
 
-    <el-menu-item @click="logout">注销</el-menu-item>
-    <el-menu-item index="/admin/main">后台管理</el-menu-item>
+    <el-menu-item class="logout" @click="logout">注销</el-menu-item>
+    <el-menu-item class="goAdmin" index="/admin/main">后台管理</el-menu-item>
   </el-menu>
 </template>
 
@@ -39,5 +39,12 @@ export default {
 </script>
 
 <style scoped>
-
+.logout{
+  position: absolute;
+  right: 140px;
+}
+.goAdmin{
+  position: absolute;
+  right: 10px;
+}
 </style>

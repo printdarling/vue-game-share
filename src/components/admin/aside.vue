@@ -1,29 +1,31 @@
 <template>
-  <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
-    <el-radio-button :label="false">expand</el-radio-button>
-    <el-radio-button :label="true">collapse</el-radio-button>
+  <div class="aside-container">
+    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
+    <el-radio-button :label="false">展开</el-radio-button>
+    <el-radio-button :label="true">收起</el-radio-button>
   </el-radio-group>
-  <el-menu
-      default-active="2"
-      class="el-menu-vertical-demo"
-      :collapse="isCollapse"
-      @open="handleOpen"
-      @close="handleClose"
-  >
-
-    <el-menu-item index="2">
-      <el-icon><icon-menu /></el-icon>
-      <template #title>Navigator Two</template>
-    </el-menu-item>
-    <el-menu-item index="3">
-      <el-icon><document /></el-icon>
-      <template #title>Navigator Three</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <el-icon><setting /></el-icon>
-      <template #title>Navigator Four</template>
-    </el-menu-item>
-  </el-menu>
+    <el-menu
+        default-active="2"
+        class="el-menu-vertical-demo"
+        :collapse="isCollapse"
+        @open="handleOpen"
+        @close="handleClose"
+        router
+    >
+      <el-menu-item index="/admin/main">
+        <el-icon><icon-menu /></el-icon>
+        <template #title>后台首页</template>
+      </el-menu-item>
+      <el-menu-item index="/admin/users">
+        <el-icon><document /></el-icon>
+        <template #title>用户管理</template>
+      </el-menu-item>
+      <el-menu-item index="/admin/games">
+        <el-icon><setting /></el-icon>
+        <template #title>游戏管理</template>
+      </el-menu-item>
+    </el-menu>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -35,7 +37,7 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 
-const isCollapse = ref(true)
+const isCollapse = ref(false)
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
@@ -48,5 +50,8 @@ const handleClose = (key: string, keyPath: string[]) => {
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;
+}
+.aside-container{
+  width: 100%;
 }
 </style>

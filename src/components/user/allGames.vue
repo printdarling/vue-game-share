@@ -17,35 +17,33 @@ export default {
       data: {}
     }).then(res => {
       this.games = res.data.data
-      console.log(res.data.data)
     })
   }
 }
 </script>
 
 <template>
-  <div>
+  <div class="main">
     <a class="small-box" href="" v-for="game in games" :key="game.id">
       <div class="box-left">
-        <img src="" alt="">
+        <img src="https://ys.mihoyo.com/main/_nuxt/img/37207c1.jpg" alt="">
       </div>
       <div class="box-right">
-        <span>游戏名称： {{game.tittle}}</span>
-        <p>游戏描述：455454545454545454</p>
-
-        <span>积分：{{game.prince}}</span>
+        <p class="title">{{game.tittle}}</p>
+        <p class="description">描述：45545454cbdbcjscbdsbccksdncndskcndnncjsdn5454545454......</p>
+        <p class="prince">积分：{{game.prince}}</p>
       </div>
-
-      <span class="gameScore" text="444"></span>
     </a>
   </div>
 </template>
 
 <style scoped>
+.main{
+  margin-top: 75px;
+}
 a.small-box {
   display: block;
   border: 1px solid rgb(210, 210, 210);
-  position: relative;
   width: 70%;
   height: 150px;
   margin: 20px auto auto 0;
@@ -57,50 +55,55 @@ a.small-box {
   /* 过渡 */
   transition: all .2s ease-out;
 }
+
+a.small-box:hover{
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(0,0,0, 0.2),
+  0 0 0 rgba(255,255,255, 0.8),
+  inset 18px 18px 30px rgba(0,0,0,0.1),
+  inset 18px -18px 30px rgba(255,255,255, 1);
+}
+
 .box-left {
-  position: absolute;
+  float: left;
   width: 26%;
-  top: -55px;
-  /*border: 1px solid green;*/
+  height: 150px;
   border-radius: 5px;
-  margin-top: 50px !important;
 }
 .box-left img {
-  margin-top: 11px;
+  width: 200px;
+  height: 120px;
+  line-height: 120px;
+  margin-top: 14px;
   border: 2px solid rgb(220, 156, 133);
-  height: 138px;
   margin-left: 20px;
 }
 
 .box-right {
-  position: absolute;
-  top: 19px;
+  float: right;
+  height: 150px;
+  margin-right: 10px;
   width: 65%;
   border-radius: 5px;
-  left: 260px;
 }
 
-.box-right span {
+.box-right p.title {
+  margin-top: 15px;
   color: black;
-  margin-top: 10px;
   font-size: 28px;
   font-weight: 600;
 }
-
-
-.box-right p {
-  text-indent: 2em;
-  text-align: start;
-  font-size: 20px !important;
+.box-right p.description {
+  margin-top: 15px;
   color: black;
-  margin-top: 6px !important;
 }
 
-.gameScore{
-  display: block;
-  position: absolute;
-  right: 32px;
-  bottom: 18px;
-  font-size: 24px;
+.box-right p.prince {
+  color: black;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 16px;
+  text-align: right;
+  font-weight: 600;
 }
 </style>

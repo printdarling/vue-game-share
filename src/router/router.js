@@ -1,10 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from "../views/login.vue";
 import Main from "../views/main.vue"
-import Admin_Main from "../components/admin/main.vue"
-import main_gameList from "../components/user/mian/main_gameList.vue";
 import main_users from "../components/admin/main_users.vue";
 import main_games from "../components/admin/main_games.vue";
+import freeGames from "../components/user/freeGames.vue";
+import payGames from "../components/user/payGames.vue";
+import allGames from "../components/user/allGames.vue";
+import admin from "../views/admin.vue";
+import adminMain from "../components/admin/adminMain.vue";
 
 const routes = [
     {
@@ -18,20 +21,33 @@ const routes = [
         component: Main,
         children: [
             {
-                path: '/gamelist',
-                component: main_gameList
-            }]
+                path: '/allGames',
+                component: allGames
+            },
+            {
+                path: '/freeGames',
+                component: freeGames
+            },
+            {
+                path: '/payGames',
+                component: payGames
+            }
+            ]
     },
     {
-        path: '/admin/main',
-        component: Admin_Main,
+        path: '/admin',
+        component: admin,
         children: [
             {
-                path: '/users',
+                path: '/admin/main',
+                component: adminMain
+            },
+            {
+                path: '/admin/users',
                 component: main_users
             },
             {
-                path: '/games',
+                path: '/admin/games',
                 component: main_games
             }
         ]
