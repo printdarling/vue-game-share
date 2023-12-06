@@ -1,11 +1,11 @@
 <template>
-  <div class="aside-container">
-    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
+  <div class="aside-container" >
+    <el-radio-group v-model="isCollapse" >
     <el-radio-button :label="false">展开</el-radio-button>
     <el-radio-button :label="true">收起</el-radio-button>
   </el-radio-group>
     <el-menu
-        default-active="2"
+        default-active="/admin/main"
         class="el-menu-vertical-demo"
         :collapse="isCollapse"
         @open="handleOpen"
@@ -49,7 +49,7 @@ const handleClose = (key: string, keyPath: string[]) => {
 <style>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
-  min-height: 400px;
+  min-height: 97vh;
 }
 .aside-container{
   width: 100%;

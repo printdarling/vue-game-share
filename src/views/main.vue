@@ -40,7 +40,6 @@ export default {
 <style scoped>
 Header{
   width: 100%;
-  height: 100px;
   position: fixed;
   top: 0;
   background-color: #fff;
@@ -48,6 +47,6 @@ Header{
 Aside{
   position: fixed;
   right: 10px;
-  top: 100px;
+  top: 70px;
 }
 </style>

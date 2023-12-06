@@ -24,10 +24,10 @@ export default {
           <Headers></Headers>
         </el-header>
         <el-container>
-          <el-aside width="200px" style="height: 97vh">
+          <el-aside style="margin-top: 20px">
             <Asides></Asides>
           </el-aside>
-          <el-main style="background-color: #f5f6fa">
+          <el-main style="background-color: #f5f6fa; margin-left: -100px">
             <router-view></router-view>
           </el-main>
         </el-container>

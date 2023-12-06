@@ -3,25 +3,25 @@
     <div class="mt-4 search-input">
       <el-row :gutter="10">
         <el-input
-            v-model="input3"
-            placeholder="Please input"
+            v-model="searchText"
+            placeholder="搜索游戏名"
             class="input-with-select"
         >
           <!-- 筛选框 -->
           <template #prepend>
-            <el-select v-model="select" placeholder="筛选" style="width: 115px">
-              <el-option label="所有游戏" value="all"></el-option>
-              <el-option label="免费游戏" value="freeGames"></el-option>
-              <el-option label="积分游戏" value="payGames"></el-option>
+            <el-select v-model="select" @change="handleSelectChange" placeholder="筛选" style="width: 115px">
+              <el-option label="所有游戏" value="1"></el-option>
+              <el-option label="免费游戏" value="2"></el-option>
+              <el-option label="积分游戏" value="3"></el-option>
             </el-select>
           </template>
           <template #append>
-            <el-button type="primary" icon="el-icon-search">搜索</el-button>
+            <el-button @click="handleSearch" type="primary" icon="el-icon-search">搜索</el-button>
           </template>
         </el-input>
       </el-row>
     </div>
-
+    <!--To do: 抽屉-->
     <el-button type="primary" style="margin: 15px auto">新增游戏</el-button>
 
       <!-- 表格 -->
@@ -39,6 +39,7 @@
     <el-table-column prop="addTime" label="游戏添加时间">2000-00-00 00:00:00</el-table-column>
     <el-table-column label="操作">
       <template v-slot="scope">
+        <!--To do : Dialog对话框-->
         <el-button type="primary">修改</el-button>
         <el-button type="danger">删除</el-button>
       </template>
@@ -62,7 +63,6 @@
 
 <script>
 import axios from "axios";
-import {Edit} from "@element-plus/icons";
 
 export default {
   data() {
@@ -89,6 +89,43 @@ export default {
       console.log(`当前页: ${val}`);
       this.currentPage = val;
     },
+    handleSelectChange(){
+      console.log('当前选择: '+ this.select)
+      switch (this.select) {
+        case '1':
+          axios({
+            url:'/getAllGamesByPage',
+            method:'post',
+            data:{}
+          }).then(res => {
+            this.tableData = res.data.data
+          })
+          break;
+        case '2':
+          axios({
+            url:'/getAllFreeGamesByPage',
+            method:'post',
+            data:{}
+          }).then(res => {
+            this.tableData = res.data.data
+          })
+          break;
+          case '3':
+          axios({
+            url:'/getAllPayGamesByPage',
+            method:'post',
+            data:{}
+          }).then(res => {
+            this.tableData = res.data.data
+          })
+        }
+    },
+    handleSearch(){
+      console.log('搜索: '+this.searchText)
+      axios({url:'/findGamesByTitle',method:'post',params:{title:this.searchText}}).then(res => {
+        this.tableData = res.data.data
+      })
+    }
   },
   created() {
     axios({
@@ -96,7 +133,6 @@ export default {
       method:'post',
       data:{}
     }).then(res => {
-      console.log(res.data.data)
       this.tableData = res.data.data
     });
   }

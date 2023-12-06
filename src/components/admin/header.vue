@@ -14,7 +14,7 @@
       </a>
     </el-menu-item>
     <div class="flex-grow" />
-    <el-menu-item index="6">{{userName}}</el-menu-item>
+    <el-menu-item @click="logOut" index="6">{{userName}}</el-menu-item>
 
   </el-menu>
 </template>
@@ -24,6 +24,12 @@ export default {
   data(){
     return{
       userName:''
+    }
+  },
+  methods:{
+    logOut(){
+      localStorage.removeItem("login_info")
+      this.$router.push("/")
     }
   },
   created() {

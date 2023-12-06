@@ -1,5 +1,5 @@
 <template>
-  <span style="text-align: center">游戏分享站</span>
+<!--  <p style="text-align: center">游戏分享站</p>-->
   <el-menu
       :default-active="activeIndex"
       class="el-menu-demo"
@@ -12,7 +12,7 @@
     <el-menu-item index="payGames">积分游戏</el-menu-item>
 
     <el-menu-item class="logout" @click="logout">注销</el-menu-item>
-    <el-menu-item class="goAdmin" index="/admin/main">后台管理</el-menu-item>
+    <el-menu-item v-if="loginUser.role === 1" class="goAdmin" index="/admin/main">后台管理</el-menu-item>
   </el-menu>
 </template>
 
@@ -20,8 +20,8 @@
 export default {
   data() {
     return {
-      activeIndex: '1',
-      activeIndex2: '1'
+      activeIndex: 'allGames',
+      loginUser:{}
     };
   },
   methods: {
@@ -34,6 +34,9 @@ export default {
       this.$message.success("注销成功！")
       this.$router.push('/')
     }
+  },
+  created() {
+    this.loginUser = JSON.parse(localStorage.getItem("login_info"))
   }
 }
 </script>
