@@ -8,6 +8,7 @@ import payGames from "../components/user/payGames.vue";
 import allGames from "../components/user/allGames.vue";
 import admin from "../views/admin.vue";
 import adminMain from "../components/admin/adminMain.vue";
+import gameInfo from "../components/user/gameInfo.vue";
 
 const routes = [
     {
@@ -31,6 +32,11 @@ const routes = [
             {
                 path: '/payGames',
                 component: payGames
+            },
+            {
+                path: '/gameInfo',
+                name: 'gameInfo',
+                component: gameInfo,
             }
             ]
     },

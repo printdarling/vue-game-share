@@ -27,7 +27,7 @@ export default {
           <el-aside width="200px" style="height: 97vh">
             <Asides></Asides>
           </el-aside>
-          <el-main class="main">
+          <el-main style="background-color: #f5f6fa">
             <router-view></router-view>
           </el-main>
         </el-container>
@@ -38,11 +38,8 @@ export default {
 
 <style scoped>
 .index{
-  position: fixed;
   width: 100%;
   height: 100vh;
-  top: 0;
-  left: 0;
 }
 Header{
   margin-bottom: 10px;

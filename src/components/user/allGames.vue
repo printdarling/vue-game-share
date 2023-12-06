@@ -1,3 +1,18 @@
+<template>
+  <div class="main">
+    <a class="small-box" @click="goGameInfo(game.id)" v-for="game in games" :key="game.id">
+      <div class="box-left">
+        <img src="https://ys.mihoyo.com/main/_nuxt/img/37207c1.jpg" alt="">
+      </div>
+      <div class="box-right">
+        <p class="title">{{game.tittle}}</p>
+        <p class="description">描述：45545454cbdbcjscbdsbccksdncndskcndnncjsdn5454545454......</p>
+        <p class="prince">积分：{{game.prince}}</p>
+      </div>
+    </a>
+  </div>
+</template>
+
 <script>
 import axios from "axios";
 
@@ -8,7 +23,15 @@ export default {
     }
   },
   methods:{
-
+    goGameInfo(id){
+      console.log('传参:'+id)
+      this.$router.push({
+        name: 'gameInfo',
+        query: {
+          id: id
+        }
+      })
+    }
   },
   mounted() {
     axios({
@@ -21,21 +44,6 @@ export default {
   }
 }
 </script>
-
-<template>
-  <div class="main">
-    <a class="small-box" href="" v-for="game in games" :key="game.id">
-      <div class="box-left">
-        <img src="https://ys.mihoyo.com/main/_nuxt/img/37207c1.jpg" alt="">
-      </div>
-      <div class="box-right">
-        <p class="title">{{game.tittle}}</p>
-        <p class="description">描述：45545454cbdbcjscbdsbccksdncndskcndnncjsdn5454545454......</p>
-        <p class="prince">积分：{{game.prince}}</p>
-      </div>
-    </a>
-  </div>
-</template>
 
 <style scoped>
 .main{
