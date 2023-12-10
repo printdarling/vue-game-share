@@ -40,11 +40,31 @@
     <el-table-column label="操作">
       <template v-slot="scope">
         <!--To do : Dialog对话框-->
-        <el-button type="primary">修改</el-button>
-        <el-button type="danger">删除</el-button>
+        <el-button @click="handleEdit(scope.row)" type="primary">修改</el-button>
+        <el-button @click="handleDelete(scope.row)" type="danger">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
+
+<!--  删除弹窗-->
+  <el-dialog v-model="dialogVisible" title="删除提醒" width="30%" draggable>
+    <span>你确定要删除吗？</span>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">
+          删除
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
+
+<!--  修改弹窗-->
+  <el-dialog v-model="modifyVisible" title="游戏修改" width="30%" draggable>
+    <el-form-item label="游戏名称">
+      <el-input></el-input>
+    </el-form-item>
+  </el-dialog>
 
       <!-- 分页 -->
       <el-pagination
@@ -63,10 +83,11 @@
 
 <script>
 import axios from "axios";
-
 export default {
   data() {
     return {
+      dialogVisible: false,
+      modifyVisible: false,
       searchText: '',
       select:'',
       pageSize: 20,
@@ -77,10 +98,12 @@ export default {
   },
   methods: {
     handleEdit(user) {
+      this.modifyVisible = true;
       console.log('Edit user:', user);
     },
-    handleDelete(user) {
-      console.log('Delete user:', user);
+    handleDelete(game) {
+      this.dialogVisible = true;
+      console.log(game);
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);

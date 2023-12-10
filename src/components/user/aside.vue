@@ -1,12 +1,52 @@
 <script>
+import axios from "axios";
+
 export default {
   data(){
     return{
-      user:''
+      user:'',
+      markStatus:true
+    }
+  },
+  methods:{
+    mark(id){
+      console.log("当前签到用户id: "+id)
+      axios({
+        url:'/mark',
+        method:'post',
+        params:{id:id}
+      }).then(res =>{
+        switch (res.data.code){
+          case 20000:
+            this.markStatus = false
+            this.$message.success(res.data.message)
+              localStorage.setItem("login_info",JSON.stringify(res.data.data))
+            break;
+          case 10001:
+            this.$message.error(res.data.message)
+            break;
+          default:
+            alert("未知错误")
+            break;
+        }
+      })
     }
   },
   created() {
     this.user = JSON.parse(localStorage.getItem("login_info"))
+
+
+    const today = new Date()
+    // 解析获取的markTime
+    const markedDate = new Date(this.user.markTime);
+    if (today.getDate() !== markedDate.getDate() ||
+        today.getMonth() !== markedDate.getMonth() ||
+        today.getFullYear() !== markedDate.getFullYear()) {
+      // 如果不为同一天
+      this.markStatus = true; // 待签到状态
+    } else {
+      this.markStatus = false; // 已签到状态
+    }
   }
 }
 </script>
@@ -17,7 +57,7 @@ export default {
       <p class="nickName">昵称: {{user.userName}}</p>
       <p class="email">邮箱: {{user.email}}</p>
       <p class="prince">积分: {{user.score}}</p>
-      <el-button class="mark-btn">签到</el-button>
+      <el-button v-show="markStatus" @click="mark(user.id)" class="mark-btn">签到</el-button>
     </div>
 
     <div class="tips">
