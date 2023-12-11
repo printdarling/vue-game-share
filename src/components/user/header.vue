@@ -12,7 +12,7 @@
     <el-menu-item index="payGames">积分游戏</el-menu-item>
 
     <el-menu-item class="logout" @click="logout">注销</el-menu-item>
-    <el-menu-item v-if="loginUser.role === 1" class="goAdmin" index="/admin/main">后台管理</el-menu-item>
+    <el-menu-item class="goAdmin" index="/admin/main">后台管理</el-menu-item>
   </el-menu>
 </template>
 

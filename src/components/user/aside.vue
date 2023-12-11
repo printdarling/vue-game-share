@@ -8,6 +8,10 @@ export default {
       markStatus:true
     }
   },
+  props: ['newScore'],
+  watch:{
+
+  },
   methods:{
     mark(id){
       console.log("当前签到用户id: "+id)
@@ -20,7 +24,10 @@ export default {
           case 20000:
             this.markStatus = false
             this.$message.success(res.data.message)
+            // 更新本地存储
               localStorage.setItem("login_info",JSON.stringify(res.data.data))
+              // 同步更新用户数据
+              this.user = JSON.parse(localStorage.getItem("login_info"))
             break;
           case 10001:
             this.$message.error(res.data.message)
@@ -30,11 +37,11 @@ export default {
             break;
         }
       })
-    }
+    },
   },
   created() {
-    this.user = JSON.parse(localStorage.getItem("login_info"))
 
+    this.user = JSON.parse(localStorage.getItem("login_info"))
 
     const today = new Date()
     // 解析获取的markTime
@@ -47,6 +54,9 @@ export default {
     } else {
       this.markStatus = false; // 已签到状态
     }
+  },
+  mounted() {
+
   }
 }
 </script>
@@ -56,13 +66,13 @@ export default {
     <div class="userInfo">
       <p class="nickName">昵称: {{user.userName}}</p>
       <p class="email">邮箱: {{user.email}}</p>
-      <p class="prince">积分: {{user.score}}</p>
+      <p class="prince">积分: {{user.score !== this.$props.newScore ? this.$props.newScore : user.score}}</p>
       <el-button v-show="markStatus" @click="mark(user.id)" class="mark-btn">签到</el-button>
     </div>
 
     <div class="tips">
       <h3>公告:</h3>
-      <p>Lorem ipsum dolor sit amet, itate distquam assumenda ur voluptatibus!</p>
+      <p>欢迎来到繁星游戏分享站点! <br><br> <span>本站所有游戏均免费分享, 请勿商用! 如果有侵权或者其他任何问题, 请联系管理员!</span><br><br><span>为保证站点流量活跃度，部分游戏为积分游戏，用户每日签到即可获得积分，积分可用于兑换游戏！</span></p>
     </div>
   </div>
 </template>
@@ -107,13 +117,6 @@ div.userInfo .mark-btn{
   margin-right: 20px;
   border: 1px solid gray;
   width: 80px;
-}
-
-div.userInfo .qiandaobtn{
-  font-size: 26px;
-  display: block;
-  border-radius: 5px;
-  border: 1px solid gray;
 }
 
 div.tips {

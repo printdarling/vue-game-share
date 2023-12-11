@@ -6,7 +6,7 @@
       </div>
       <div class="box-right">
         <p class="title">{{game.tittle}}</p>
-        <p class="description">描述：45545454cbdbcjscbdsbccksdncndskcndnncjsdn5454545454......</p>
+        <p class="description">描述：{{ truncateDescription(game.description) }}</p>
         <p class="prince">积分：{{game.prince}}</p>
       </div>
     </a>
@@ -23,6 +23,13 @@ export default {
     }
   },
   methods:{
+    truncateDescription(description){
+      const maxLength = 30;
+      if (description.length > maxLength) {
+        return description.slice(0, maxLength) + '...';
+      }
+      return description;
+    },
     goGameInfo(id){
       console.log('传参:'+id)
       this.$router.push({
