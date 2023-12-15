@@ -51,19 +51,19 @@ axios.defaults.baseURL='/api'
 				passwordError: false,
 				existed: false,
 				form:{
-          usernameOrEmail:'admin',
+          usernameOrEmail:'',
           userName:'',
           email:'',
-					password:'123456'
+					password:''
 				}
 			}
 		},
 		methods:{
 			changeType() {
 				this.isLogin = !this.isLogin
-				this.form.usernameOrEmail = 'admin'
-				this.form.useremail = 'admin'
-				this.form.password = '123456'
+				this.form.usernameOrEmail = ''
+				this.form.useremail = ''
+				this.form.password = ''
 			},
 			login() {
 				if (this.form.usernameOrEmail !== "" && this.form.userpwd !== "") {

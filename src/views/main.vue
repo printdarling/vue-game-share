@@ -3,6 +3,7 @@
 import Header from "../components/user/header.vue";
 import Aside from "../components/user/aside.vue";
 import GameInfo from "../components/user/gameInfo.vue";
+import axios from "axios";
 
 export default {
   components:{
@@ -19,9 +20,22 @@ export default {
   methods: {
     update(score) {
       this.score = score;
+    },
+    getIpInfo(){
+      axios({
+        url:'https://api.vvhan.com/api/getIpInfo',
+        method:'get',
+      }).then(res => {
+        console.log(res.data)
+        this.$notify({title:'欢迎您！',
+          message:('来自'+res.data.info.city+'的朋友~'),
+          position: 'bottom-left'
+        })
+      })
     }
   },
   created() {
+    this.getIpInfo()
     if (JSON.parse(localStorage.getItem("login_info")) == null){
       this.$message.error("未登录！！")
       this.$router.push("/")

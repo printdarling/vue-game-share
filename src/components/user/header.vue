@@ -1,5 +1,4 @@
 <template>
-<!--  <p style="text-align: center">游戏分享站</p>-->
   <el-menu
       :default-active="activeIndex"
       class="el-menu-demo"
@@ -11,6 +10,11 @@
     <el-menu-item index="freeGames">免费游戏</el-menu-item>
     <el-menu-item index="payGames">积分游戏</el-menu-item>
 
+    <el-menu-item style="margin-left: 20px">
+      <el-input v-model="searchText"></el-input>
+      <el-button @click="searchGame" type="primary">搜索</el-button>
+    </el-menu-item>
+
     <el-menu-item class="logout" @click="logout">注销</el-menu-item>
     <el-menu-item class="goAdmin" index="/admin/main">后台管理</el-menu-item>
   </el-menu>
@@ -21,12 +25,25 @@ export default {
   data() {
     return {
       activeIndex: 'allGames',
-      loginUser:{}
+      loginUser:{},
+      searchText:''
     };
   },
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+    },
+    searchGame(){
+      if (this.searchText === ''){
+        this.$message.error("请输入搜索内容")
+      }else {
+        this.$router.push({
+          name: 'allGames',
+          query: {
+            searchText: this.searchText
+          }
+        })
+      }
     },
     logout(){
       localStorage.removeItem("login_info")

@@ -41,7 +41,7 @@ export default {
   <div class="main">
     <a class="small-box" @click="goGameInfo(game.id)" v-for="game in games" :key="game.id">
       <div class="box-left">
-        <img src="https://ys.mihoyo.com/main/_nuxt/img/37207c1.jpg" alt="">
+        <img :src="game.imgUrl" alt="">
       </div>
       <div class="box-right">
         <p class="title">{{game.tittle}}</p>

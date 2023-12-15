@@ -2,7 +2,7 @@
   <div class="main">
     <a class="small-box" @click="goGameInfo(game.id)" v-for="game in games" :key="game.id">
       <div class="box-left">
-        <img src="https://ys.mihoyo.com/main/_nuxt/img/37207c1.jpg" alt="">
+        <img :src="game.imgUrl" alt="">
       </div>
       <div class="box-right">
         <p class="title">{{game.tittle}}</p>
@@ -11,6 +11,7 @@
       </div>
     </a>
   </div>
+
 </template>
 
 <script>
@@ -38,16 +39,24 @@ export default {
           id: id
         }
       })
-    }
+    },
   },
-  mounted() {
-    axios({
-      method: 'post',
-      url: '/getAllGamesByPage',
-      data: {}
-    }).then(res => {
-      this.games = res.data.data
-    })
+  created() {
+    console.log('接收到搜索值: '+this.$route.query.searchText)
+    if (this.$route.query.searchText!== undefined){
+      axios({url:'/findGamesByTitle',method:'post',params:{title:this.$route.query.searchText}}).then(res => {
+        console.log(res.data.data)
+        this.games = res.data.data
+      })
+    }else {
+      axios({
+        method: 'post',
+        url: '/getAllGamesByPage',
+        data: {}
+      }).then(res => {
+        this.games = res.data.data
+      })
+    }
   }
 }
 </script>

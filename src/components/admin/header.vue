@@ -8,7 +8,7 @@
       <a href="/allGames">
         <img
             style="width: 100px"
-            src="https://eimg.smzdm.com/201706/16/5943c6d14abe97035.jpg"
+            src="../../assets/imgs/首页.png"
             alt="回首页"
         />
       </a>

@@ -2,7 +2,7 @@
   <!--主内容-->
   <div class="container">
     <div class="top-box">
-      <img src="https://ys.mihoyo.com/main/_nuxt/img/37207c1.jpg" alt="">
+      <img :src="game.imgUrl" alt="">
     </div>
     <div class="bottom-box">
       <h4>游戏名称:</h4>
@@ -29,10 +29,10 @@
     <br><br><hr><br>
     <div v-if="isShow">
       <p>下载地址:</p>
-      <el-button type="success">百度网盘</el-button>
-      <el-button type="success">阿里云盘</el-button>
-      <el-button type="success">夸克网盘</el-button>
-      <el-button type="success">其他链接</el-button>
+      <a :href="game.duLink" target="_blank" style="margin-left: 10px;"><el-button type="success">百度网盘</el-button></a>
+      <a :href="game.aliLink" target="_blank" style="margin-left: 10px;"><el-button type="success">阿里云盘</el-button></a>
+      <a :href="game.quarkLink" target="_blank" style="margin-left: 10px;"><el-button type="success">夸克网盘</el-button></a>
+      <a :href="game.otherLink" target="_blank" style="margin-left: 10px;"><el-button type="success">其他链接</el-button></a>
     </div>
   </div>
 </template>

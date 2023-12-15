@@ -23,6 +23,7 @@ const routes = [
         children: [
             {
                 path: '/allGames',
+                name: 'allGames',
                 component: allGames
             },
             {

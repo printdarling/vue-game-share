@@ -26,12 +26,9 @@ import axios from "axios";
 export default {
   data() {
     return {
+      users:[100,80,20],
+      games:[50,30,20],
       totalUser: 100,
-      normalUsers: 80,
-      adminUsers: 20,
-      totalGames: 50,
-      freeGames: 30,
-      payGames: 20,
       userPie: null,
       userBar: null,
       gamePie: null,
@@ -39,27 +36,23 @@ export default {
     }
   },
   created() {
-    this.getData();
-    // 强制重新加载页面
+
   },
   mounted() {
+    this.getData();
     this.initCharts();
   },
   methods:{
     getData(){
       axios.post('/getGamesCount', {})
       .then(res=>{
-        this.totalGames = res.data.data[0]
-        this.freeGames = res.data.data[1]
-        this.payGames = res.data.data[2]
+        this.games = res.data.data
         this.updateGameCharts();
       })
 
       axios.post('/getUsersCount', {})
       .then(res=>{
-        this.totalUser = res.data.data[0]
-        this.normalUsers = res.data.data[1]
-        this.adminUsers = res.data.data[2]
+        this.users = res.data.data
         this.updateUserCharts();
       });
 
@@ -90,8 +83,8 @@ export default {
             type: 'pie',
             radius: '50%',
             data: [
-              { value: this.normalUsers, name: '普通用户' },
-              { value: this.adminUsers, name: '管理员' }
+              { value: this.users[1], name: '普通用户' },
+              { value: this.users[2], name: '管理员' }
             ],
             emphasis: {
               itemStyle: {
@@ -127,7 +120,7 @@ export default {
           {
             name: '用户数量',
             type: 'bar',
-            data: [this.normalUsers, this.adminUsers]
+            data: [this.users[1], this.users[2]]
           }
         ]
       };
@@ -151,8 +144,8 @@ export default {
             type: 'pie',
             radius: '50%',
             data: [
-              { value: this.freeGames, name: '免费游戏' },
-              { value: this.payGames, name: '付费游戏' }
+              { value: this.games[1], name: '免费游戏' },
+              { value: this.games[2], name: '付费游戏' }
             ],
             emphasis: {
               itemStyle: {
@@ -188,7 +181,7 @@ export default {
           {
             name: '游戏数量',
             type: 'bar',
-            data: [this.freeGames, this.payGames]
+            data: [this.games[1], this.games[2]]
           }
         ]
       };
@@ -205,8 +198,8 @@ export default {
         series: [
           {
             data: [
-              { value: this.normalUsers, name: '普通用户' },
-              { value: this.adminUsers, name: '管理员' }
+              { value: this.users[1], name: '普通用户' },
+              { value: this.users[2], name: '管理员' }
             ]
           }
         ]
@@ -214,7 +207,7 @@ export default {
       this.userBar.setOption({
         series: [
           {
-            data: [this.normalUsers, this.adminUsers]
+            data: [this.users[1], this.users[2]]
           }
         ]
       });
@@ -225,8 +218,8 @@ export default {
         series: [
           {
             data: [
-              { value: this.freeGames, name: '免费游戏' },
-              { value: this.payGames, name: '付费游戏' }
+              { value: this.games[1], name: '免费游戏' },
+              { value: this.games[2], name: '付费游戏' }
             ]
           }
         ]
@@ -234,7 +227,7 @@ export default {
       this.gameBar.setOption({
         series: [
           {
-            data: [this.freeGames, this.payGames]
+            data: [this.games[1], this.games[2]]
           }
         ]
       });
