@@ -15,10 +15,10 @@
 				<div class="big-contain" key="bigContainRegister" v-else>
 					<div class="btitle">创建账户</div>
 					<div class="bform">
-						<input type="text" placeholder="用户名" v-model="form.username">
+						<input type="text" placeholder="用户名" v-model="form.userName">
 						<span class="errTips" v-if="existed">* 用户名已经存在！ *</span>
-						<input type="email" placeholder="邮箱" v-model="form.useremail">
-						<input type="password" placeholder="密码" v-model="form.userpwd">
+						<input type="email" placeholder="邮箱" v-model="form.email">
+						<input type="password" placeholder="密码" v-model="form.password">
 					</div>
 					<button class="bbutton" @click="register">注册</button>
 				</div>
@@ -106,26 +106,32 @@ axios.defaults.baseURL='/api'
 				}
 			},
 			register(){
-				const self = this;
-				if(self.form.username !== "" && self.form.useremail !== "" && self.form.userpwd !== ""){
+				if(this.form.userName !== "" && this.form.useremail !== "" && this.form.password !== ""){
+          console.log("注册："+this.form.userName+" "+this.form.email+" "+this.form.password)
 					axios({
 						method:'post',
 						url: '/register',
 						data: {
-							username: self.form.username,
-							email: self.form.useremail,
-							password: self.form.userpwd
+              userName: this.form.userName,
+							email: this.form.email,
+							password: this.form.password
 						}
 					})
 					.then( res => {
-						switch(res.data){
-							case 0:
-								alert("注册成功！");
-								this.login();
+            console.log(res)
+						switch(res.data.code){
+							case 20000:
+                this.$message.success(res.data.message)
+                localStorage.setItem("login_info",JSON.stringify(res.data.data))
+                sessionStorage.setItem("id",JSON.stringify(res.data.data.id))
+                this.$router.push('/allGames')
 								break;
-							case -1:
-								this.existed = true;
+							case 10004:
+                this.$message.error(res.data.message)
 								break;
+              case 10003:
+                this.$message.error(res.data.message)
+                break;
 						}
 					})
 					.catch( err => {
